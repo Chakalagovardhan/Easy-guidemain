@@ -1,13 +1,19 @@
 import React from 'react'
 import '../index.css';
-
+import Herocarousel, { ConatctUs, Footer, ProgrameRecomnd, ReviewsSection, TopMentors,FrequentlyAsked } from './HomeParts';
+import NavBar from './NavBar';
 
 const HeroSection = () => {
   return (
     <div>
-      <div class="h-[calc(100vh-7rem)] bg-[#7c6cd9] flex items-center justify-center rounded-br-[25%]">
-        <p class="text-xl font-bold">Hello World</p>
+      <div class="h-[calc(100vh-7rem)] bg-[#7c6cd9] flex flex-col items-center   rounded-br-[25%] ">
+        <Herocarousel />
+        <div className='w-1/2 h-[1px] bg-white mt-10'></div>
+        
+        
        </div>
+       
+       
        <div class="w-full h-[300px] flex flex-row gap-3 justify-center overflow-hidden">
     <div class="h-full w-[300px] relative">
         <div class="h-[180px] w-[180px]  bg-[#7a6ad7] rounded-lg absolute top-[55px] left-[55px] flex flex-col justify-center items-center p-4 overflow-hidden gap-1">
@@ -47,4 +53,21 @@ const HeroSection = () => {
   )
 }
 
-export default HeroSection
+
+const Home = ()=>{
+    return(
+        <>
+            <NavBar />
+            <HeroSection />
+            <ProgrameRecomnd />
+            <TopMentors />
+            <ConatctUs />
+            <ReviewsSection />
+            <FrequentlyAsked />
+            <Footer />
+            
+        </>
+    );
+}
+
+export default Home;

@@ -1,49 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import NavBar from './Components/NavBar'
-import HeroSection from './Components/HeroSection'
-import { createBrowserRouter,RouterProvider } from 'react-router-dom';
-import ErrorPage from './Components/ErrorPage'
-import Login from './Components/Login'
-const router=createBrowserRouter(
-  [
-    {
-      path:'/',
-      element:<div>
-        <NavBar /> 
-        <HeroSection />
-      </div>
-    },
-    {
-      path:'/userlogin',
-      element:<div>
-        <Login />
-      </div>
-    },
-    
-    {
-      path:'*',
-      element:<div>
-        <NavBar />
-        <ErrorPage />
-      </div>
-    },{}
-  ]
+import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Suspense, lazy, useState } from 'react';
+import MentorsPortal from './Components/MentorsPortal';
+import Home from './Components/Home';
 
-);
+// Lazy-loaded components
+const NavBar = lazy(() => import('./Components/NavBar'));
+const HeroSection = lazy(() => import('./Components/Home'));
+const ErrorPage = lazy(() => import('./Components/ErrorPage'));
+const Login = lazy(() => import('./Components/Login'));
 
+// Router configuration
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <div>
+          <Home />
+        </div>
+      </Suspense>
+    ),
+  },
+  {
+    path: '/userlogin',
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <div>
+          <Login />
+        </div>
+      </Suspense>
+    ),
+  },
+  {
+    path:'/mentorbook',
+    element:(
+      <Suspense fallback={<div>Laoding...</div>}>
+        <div>
+        <MentorsPortal />
+        </div>
 
+      </Suspense>
+    )
+  },
+  {
+    path: '*',
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <div>
+          <NavBar />
+          <ErrorPage />
+        </div>
+      </Suspense>
+    ),
+  },
+]);
 
+// Main App Component
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-     <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
