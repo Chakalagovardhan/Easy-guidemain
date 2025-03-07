@@ -1,18 +1,21 @@
 import React from 'react'
 import '../index.css';
-import { NavLink } from 'react-router-dom'
+import { NavLink ,Link} from 'react-router-dom'
 
 
 
 
 const NavBar = () => {
   return (
-    <div>
-        <div className=" bg-[#7c6cd9] flex sticky top-0 justify-between border-b-2 border-b-white rounded-b-lg z-10">
+    <div className="h-[100px] " >
+        <div className=" bg-[#7c6cd9] w-full flex   justify-between border-b-2 border-b-white rounded-b-lg z-10">
         <div >
           <ul className=" flex justify-start ">
             <li className="text-white w-[60px]  m-5 hover:bg-zinc-700 overflow-hidden  font-bold">
-              <img src="src/Images/easyguidelogo.png" alt="" className=' rounded-lg h-full'/>
+            <Link to="/" onClick={()=>console.log("clickde the image")}>
+  <img src="src/Images/easyguidelogo.png" alt="Logo" className="rounded-lg h-full"/>
+</Link>
+
               </li>
             <li className="text-white h-1/2  p-2 m-5 hover:bg-zinc-700  rounded font-bold">Mummy</li>
           </ul> 

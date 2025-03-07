@@ -4,18 +4,19 @@ import "./NavBar";
 import NavBar from "./NavBar";
 import "./mentoring.css";
 import axios from "axios";
+import { Outlet,Link } from "react-router-dom";
 
 //profile card
 const ProfileCard = ({ mentor }) => {
   return (
     <div className="w-[250px] h-[300px] border-2 m-5 flex flex-col bigger-main rounded-lg overflow-hidden">
       <div className="flex flex-col items-center justify-center bg-green-600 flex-1">
-        <img src={mentor.imageUrl || profileImage} alt="" className="w-[80px] h-[80px] rounded-full object-cover" />
-        <span className="m-1 font-semibold">{mentor.name}</span>
+        <img src={mentor.imageUrl } alt="" className="w-[80px] h-[80px] rounded-full object-cover" />
+        <span className="m-1 font-semibold">Name: {mentor.userName}</span>
       </div>
       <div className="bg-yellow-600 w-full h-full flex-1 flex flex-col gap-2 p-2">
-        <p className="w-full truncate bg-pink-600">{mentor.role}</p>
-        <div className="w-[50px] bg-pink-600 p-1">{mentor.rating}</div>
+        <p className="w-full truncate bg-pink-600">{mentor.roles}</p>
+        <div className="w-[50px] bg-pink-600 p-1">{mentor.ratting}</div>
         <p>DOJ: {mentor.doj}</p>
         <div className="flex-grow"></div>
         <div className="flex justify-end bigger ml-2">
@@ -43,66 +44,22 @@ const filtertoggle = () => {
 };
 
 //filter form component
-const FilterComponent = ({ filters, setFilters, selectedValue, setSelectedValue,setMentors }) => {
-  const handleFilterChange = (event) => {
-    const { name, value } = event.target;
-    setFilters((previousdata) => ({
-      ...previousdata,
-      [name]: value,
-    }));
-  };
-
-
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission
-
-    // Modify the data (e.g., capitalize the first letter of the company name)
-    const modifiedFilters = {
-      ...filters,
-      company: filters.Working_company
-        ? filters.Working_company.charAt(0).toUpperCase() + filters.Working_company.slice(1)
-        : "",
-        profession: filters.working_role,
-        rating: filters.user_rating,
-        experience: filters.domain_experience
-
-    };
-
-    try {
-      // Send the modified data to the backend
-      const response = await axios.get(
-        "http://localhost:8080/user/get-user", // Replace with your backend endpoint
-        modifiedFilters, // Send the modified data as the request body
-        {
-          headers: {
-            "Content-Type": "application/json", // Set the content type to JSON
-          },
-          withCredentials: true, // Include credentials if needed
-        }
-      );
-      console.log("API Response:", response); 
-      if(response.data && response.status !==204)
-        setMentors( response.data);
-      else
-        setMentors([]);
-      
-    } catch (error) {
-      console.error("Error sending data to backend:", error);
-      alert("Failed to send data. Please try again.");
-    }
-  };
-
-
+const FilterComponent = ({ filters,setFilters,selectedValue, setSelectedValue,handleSubmit,handleFilterChange }) => {
+  
+  
   return (
     <>
       <form className="flex flex-col gap-2 p-2" onSubmit={handleSubmit}>
         <button
-          type="submit"
-          className="flex flex-row justify-center items-center gap-2 ml-5 rounded-full mt-5 border-2 border-blue-400 px-4"
+          type="submit" // Change to type="button" to prevent form submission
+          
+          className="flex flex-row justify-center items-center gap-2 ml-5 rounded-full mt-5 border-2 border-blue-400 px-4 "
+          onClick={handleSubmit}
         >
           <img src="./filter.png" alt="" className="w-[15px] h-[15px]" />
           <p className="inline text-lg font-semibold">Filter</p>
         </button>
+  
 
         <label htmlFor="Working_company">Company</label>
         <input
@@ -122,7 +79,7 @@ const FilterComponent = ({ filters, setFilters, selectedValue, setSelectedValue,
           onChange={handleFilterChange}
           className="w-[50%] rounded"
         >
-          <option value="NA">NA</option>
+          <option value="0">NA</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value=">3">3</option>
@@ -134,14 +91,14 @@ const FilterComponent = ({ filters, setFilters, selectedValue, setSelectedValue,
             type="range"
             id="user_rating"
             name="user_rating"
-            value={filters.user_rating}
+            onChange={handleFilterChange}
+            value={filters.user_rating || 0}
             min="1"
             max="5"
-            onChange={handleFilterChange}
             className="rounded w-[150px]"
           />
           <ul className="flex justify-between">
-            <li>1</li>
+            <li >1</li>
             <li>2</li>
             <li>3</li>
             <li>4</li>
@@ -156,7 +113,7 @@ const FilterComponent = ({ filters, setFilters, selectedValue, setSelectedValue,
           value={filters.working_role}
           onChange={handleFilterChange}
         >
-          <option value="Software engineer">Software engineer</option>
+          <option value="Software Developer">Software Developer</option>
           <option value="Backend developer">Backend developer</option>
           <option value="Web developer">Web developer</option>
           <option value="AI/ML Engineer">AI/ML Engineer</option>
@@ -175,7 +132,7 @@ const FilterComponent = ({ filters, setFilters, selectedValue, setSelectedValue,
           className="border-black rounded border w-[60px] px-3"
           onClick={() => setFilters({
             Working_company: "",
-            domain_experience: "NA",
+            domain_experience: 0,
             user_rating: "",
             userCount: 0,
             working_role: "",
@@ -205,33 +162,84 @@ const FilterComponent = ({ filters, setFilters, selectedValue, setSelectedValue,
 
 //main ui
 const MentorsPortal = () => {
+
+  const [selectedValue, setSelectedValue] = useState(10);
   const [filters, setFilters] = useState({
     Working_company: "",
-    domain_experience: "NA",
-    user_rating: "",
-    userCount: 10,
-    working_role: "",
+    domain_experience: 0,
+    user_rating: 1,
+    usersCount:selectedValue,
+    working_role:""
+
+    
   });
-  const [selectedValue, setSelectedValue] = useState(0);
+
+  
   const [mentors, setMentors] = useState([]);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  const fetchMentors = async () => {
+    
+    const params = {
+    profession: filters.working_role ? filters.working_role :"Software Developer",
+    rating: filters.user_rating,
+    experience: filters.domain_experience,
+    company: filters.Working_company ? filters.Working_company: "", // Send "company" instead of "workingCompany"
+    pageSize: selectedValue,
+    pageNumber: 0,
+    
+    };
+    
+
+    try {
+      const url = "http://localhost:8080/user/get-user";
+      const response = await axios.get(url, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+        params: params,
+      });
+      console.log(params);
+      if (response.data && response.data.content.length > 0) {
+        setMentors(response.data.content);
+        console.log("Mentors fetched successfully:", response.data);
+      } else {
+        setMentors([]);
+        console.log("No mentors found.");
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      setMentors([]);
+    }
+  };
 
   useEffect(() => {
-    if (selectedValue === 0) return;
+    if (isInitialLoad) {
+      setIsInitialLoad(false); // Set the flag to false after the initial load
+      return; // Skip the API call on initial load
+    }
 
-    const url = "http://localhost:8080/user/get-user";
-    axios
-      .get(url, { withCredentials: true })
-      .then((response) => {
-        if (response.data == 0) {
-          setMentors([]);
-        } else {
-          setMentors(response.data);
-        }
-      })
-      .catch((error) => console.error("CORS Error:", error));
+    const timeout = setTimeout(() => {
+      fetchMentors();
+    }, 500);
+
+    return () => clearTimeout(timeout);
   }, [filters, selectedValue]);
+   
 
- 
+
+  const handleSubmit =(e)=>{
+    e.preventDefault();
+    fetchMentors();
+
+  };
+
+  const handleFilterChange = (event) => {
+    const { name, value } = event.target;
+    setFilters((previousdata) => ({
+      ...previousdata,
+      [name]: value,
+    }));
+  };
 
   return (
     <div className="overflow-x-clip">
@@ -260,7 +268,8 @@ const MentorsPortal = () => {
               setFilters={setFilters}
               selectedValue={selectedValue}
               setSelectedValue={setSelectedValue}
-              setMentors={setMentors}
+              handleSubmit={handleSubmit}
+              handleFilterChange={handleFilterChange}
             />
           </div>
 
@@ -281,6 +290,8 @@ const MentorsPortal = () => {
                 setFilters={setFilters}
                 selectedValue={selectedValue}
                 setSelectedValue={setSelectedValue}
+                handleSubmit={handleSubmit}
+                handleFilterChange={handleFilterChange}
               />
             </div>
           </section>
@@ -308,8 +319,8 @@ const MentorsPortal = () => {
           </div>
         </div>
       </main>
+      
     </div>
   );
 };
-
 export default MentorsPortal;
