@@ -3,7 +3,8 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import { Suspense, lazy, useState } from 'react';
 import MentorsPortal from './Components/MentorsPortal';
 import Home from './Components/Home';
-import MentorBooking from './Components/MentorBooking';
+import MentorBooking, { BookingSlots } from './Components/MentorBooking';
+import MentorslotSetter from './Components/MentorslotSetter';
 
 // Lazy-loaded components
 const NavBar = lazy(() => import('./Components/NavBar'));
@@ -52,9 +53,21 @@ const router = createBrowserRouter([
     <Suspense fallback={<div>Loading...</div>}>
         <NavBar />
         <MentorBooking />
+        <BookingSlots />
      
     </Suspense>
   ),
+  },
+
+  {
+    path:'mentorslotsetter',
+    element:(
+      <Suspense fallback={<div>Loading...</div>}>
+        <div>
+          <MentorslotSetter />
+        </div>
+      </Suspense>
+    ),
   },
   
   {

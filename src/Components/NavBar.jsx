@@ -36,4 +36,25 @@ const NavBar = () => {
   )
 }
 
+const SmallNavBar =()=>{
+  return(
+    <>
+    <div className='flex justify-between h-[50px] bg-gray-700 '>
+      <button>
+      <img src="src/Images/minNavbar.png" alt="" className='h-[30px] w-[40px] my-auto mx-3' />
+      </button>
+      <a href="" className='w-[40px] my-auto '>
+      <img src="src/Images/easyguidelogo.png" alt=""  />
+      </a>
+      
+      
+    </div>
+    </>
+  );
+}
+
 export default NavBar
+export 
+{
+  SmallNavBar
+};

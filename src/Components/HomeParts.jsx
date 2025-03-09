@@ -1,6 +1,6 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "../index.css";
 
@@ -16,7 +16,7 @@ const Herocarousel = () => {
   };
   return (
     <>
-      <div className="w-1/3 mt-10">
+      <div className="w-[80%] sm:w-1/3 mt-10">
         <div className="mr-2">
           <Slider {...settings}>
             <div className="w-full h-[300px] bg-green-600  p-3 mx-2">
@@ -144,7 +144,7 @@ const Footer = () => {
 const ProgrameRecomnd = () => {
   return (
     <>
-      <div className="min-h-[500px]  my-10 rounded-lg   p-1 flex gap-10 mx-6 ">
+      <div className="min-h-[500px]  my-10 rounded-lg   p-1 flex flex-col sm:flex-row gap-10 mx-6 ">
         <div className="min-w-1/3 w-1/3">
           <img
             src="src/Images/LadyTeaching.png"
@@ -203,7 +203,7 @@ const ProgrameRecomnd = () => {
 const TopMentors = () => {
   return (
     <>
-      <div className="w-[90%] flex justify-evenly  mx-auto items-center bg-black h-[500px]">
+      <div className="w-[90%] flex flex-col gap-4 sm:gap-0 sm:flex-row justify-evenly  mx-auto items-center bg-black h-[500px]">
         <div className="box"></div>
         <div className="box"></div>
         <div className="box"></div>
@@ -213,12 +213,30 @@ const TopMentors = () => {
 };
 
 const ReviewsSection = () => {
+  const[elementno,setElementno] = useState(1);
+
+  useEffect(()=>{
+
+    const handelSizeChange =()=>{
+      if (window.innerWidth >= 768) {
+        setElementno(3);
+      }else{
+        setElementno(1);
+      }
+    }
+    handelSizeChange();
+
+    window.addEventListener("resize",handelSizeChange);
+    return()=>window.removeEventListener("resize",handelSizeChange);
+  },[]);
+
+
   const settings = {
     className: "center",
     centerMode: true,
     infinite: true,
     centerPadding: "60px",
-    slidesToShow: 3,
+    slidesToShow: elementno,
     speed: 1000,
     autoplay: true,
     autoplaySpeed: 3000,
@@ -228,25 +246,25 @@ const ReviewsSection = () => {
       <div className="w-full h-96 my-10  overflow-hidden">
         <div className="slider-container">
           <Slider {...settings}>
-            <div className="w-full h-[300px] bg-green-600  p-3 mx-2">
+            <div className="w-full sm:w-[300px]  h-[300px] bg-green-600  p-3 mx-2">
               <h3>1</h3>
             </div>
-            <div className="w-full h-[300px] bg-green-600  p-3 mx-2">
+            <div className="w-full sm:w-[300px] h-[300px] bg-green-600  p-3 mx-2">
               <h3>2</h3>
             </div>
-            <div className="w-full h-[300px] bg-green-600  p-3 mx-2">
+            <div className="w-full sm:w-[300px] h-[300px] bg-green-600  p-3 mx-2">
               <h3>3</h3>
             </div>
-            <div className="w-full h-[300px] bg-green-600  p-3 mx-2">
+            <div className="w-full sm:w-[300px] h-[300px] bg-green-600  p-3 mx-2">
               <h3>4</h3>
             </div>
-            <div className="w-full h-[300px] bg-green-600  p-3 mx-2">
+            <div className="w-full sm:w-[300px] h-[300px] bg-green-600  p-3 mx-2">
               <h3>5</h3>
             </div>
-            <div className="w-full h-[300px] bg-green-600  p-3 mx-2">
+            <div className="w-full sm:w-[300px] h-[300px] bg-green-600  p-3 mx-2">
               <h3>6</h3>
             </div>
-            <div className="w-full h-[300px] bg-green-600  p-3 mx-2">
+            <div className="w-full sm:w-[300px] h-[300px] bg-green-600  p-3 mx-2">
               <h3>7</h3>
             </div>
           </Slider>
@@ -259,8 +277,8 @@ const ReviewsSection = () => {
 const FrequentlyAsked = () => {
   return (
     <>
-      <div className="flex justify-between ">
-        <div className="w-full min-h-[350px] h-auto flex flex-col bg-black my-5 justify-evenly ">
+      <div className="flex flex-col sm:flex-row justify-between ">
+        <div className="w-full min-h-[350px] h-auto flex flex-col bg-black  sm:my-5 justify-evenly ">
           <details>
             <summary className="bg-[#7c6cd9] rounded-l-2xl w-[200px] p-2 mr-5 text-wrap">
               What is this test?
@@ -290,7 +308,7 @@ const FrequentlyAsked = () => {
           </details>
           
         </div>
-        <div className="w-full min-h-[350px] h-auto flex flex-col bg-black my-5 justify-evenly ">
+        <div className="w-full min-h-[350px] h-auto flex flex-col bg-black mb-4 sm:my-5 justify-evenly ">
           <details>
             <summary className="bg-[#7c6cd9] rounded-l-2xl w-[200px] p-2 mr-5">
               What is this test?
@@ -299,6 +317,7 @@ const FrequentlyAsked = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Doloremque, modi.
             </p>
+            
           </details>
           <details>
             <summary className="bg-[#7c6cd9] rounded w-[200px] p-2">
