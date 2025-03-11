@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import NavBar from './NavBar';
 
 const SlotAdder = ({ onRemove, onDayChange, day }) => {
   return (
     <>
+    <div className='flex justify-between'>
       <select
         name="day"
         id="day"
-        value={day} // Bind the value to the `day` prop
+        value={day} 
         onChange={(e) => onDayChange(e.target.value)}
+        className='border-2 border-black rounded-md'
       >
         <option value="Select">Select</option>
         <option value="Monday">Monday</option>
@@ -18,9 +21,10 @@ const SlotAdder = ({ onRemove, onDayChange, day }) => {
         <option value="Saturday">Saturday</option>
         <option value="Sunday">Sunday</option>
       </select>
-      <button onClick={onRemove} className="bg-red-500 text-white p-2 ml-2">
+      <button onClick={onRemove} className="bg-red-500 text-white p-2 ml-2 rounded-md">
         Remove Slot
       </button>
+      </div>
     </>
   );
 };
@@ -29,7 +33,7 @@ const MentorslotSetter = () => {
   const [slots, setSlots] = useState([]);
 
   const addSlot = () => {
-    const newSlot = { id: Date.now(), day: 'Select' }; // Default day is 'Select'
+    const newSlot = { id: Date.now(), day: 'Select' };
     setSlots([...slots, newSlot]);
   };
 
@@ -38,69 +42,78 @@ const MentorslotSetter = () => {
   };
 
   const handleDayChange = (id, day) => {
-    setSlots(slots.map(slot =>
-      slot.id === id ? { ...slot, day } : slot
-    ));
+    setSlots(slots.map(slot => (slot.id === id ? { ...slot, day } : slot)));
   };
 
   const slotSubmit = () => {
-    console.log(slots); // Log the slots array to the console
+    console.log(slots);
   };
 
   const removeAllSlots = () => {
-    setSlots([]); // Remove all slots
+    setSlots([]);
   };
 
   const resetAllSlots = () => {
     const updatedSlots = slots.map(slot => ({ ...slot, day: 'Select' }));
-    console.log(updatedSlots); // Log the updated slots
-    setSlots(updatedSlots); // Reset the day for all slots
+    setSlots(updatedSlots);
   };
 
   return (
-    <div className='bg-red-500 h-screen w-screen overflow-x-hidden overflow-y-auto'>
-      <div className='h-[150px] sm:h-[300px] w-screen bg-blue-600 flex gap-2 sm:gap-10'>
-        <div className='sm:w-[20%] sm:h-full flex self-center bg-pink-700'>
-          <img src="" alt="" className='w-[100px] h-[100px] self-center sm:w-[200px] sm:h-[200px] bg-black rounded-full' />
+    <>
+    
+    <NavBar />
+      {/* Make the whole window scrollable */}
+      <div className=" min-h-screen w-screen overflow-x-hidden overflow-y-auto p-10">
+        {/* Mentor Info Section */}
+        <div className="h-[150px] sm:h-[300px] w-full bg-gray-400 flex gap-2 sm:gap-10 rounded-md overflow-hidden">
+          <div className="sm:w-[20%] sm:h-full flex  justify-center bg-gray-400">
+            <img src="" alt="" className="w-[100px] h-[100px] self-center sm:w-[200px] sm:h-[200px] bg-black rounded-full" />
+          </div>
+          <div className="flex flex-col gap-5 self-center">
+            <p>name</p>
+            <p>rating</p>
+            <p>id</p>
+            <p>mail</p>
+          </div>
         </div>
-        <div className='flex flex-col gap-5 self-center'>
-          <p>name</p>
-          <p>rating</p>
-          <p>id</p>
-          <p>mail</p>
+
+        {/* Previous Slots Section */}
+        <div className="bg-gray-400 min-h-[50px] w-full my-5 rounded-md overflow-hidden">
+          <h1>Previous slots</h1>
+        </div>
+
+        {/* Slot Management Section */}
+        <div className="w-full min-h-[150px] bg-gray-400 my-10 p-5 rounded-md">
+          <div className="flex flex-col gap-2 sm:flex-row sm:gap-10">
+            <button onClick={addSlot} className="bg-[#51b8e1] hover:bg-[#1e85ae] w-auto p-[8px] rounded-2xl">
+              Slot Adder
+            </button>
+            <button onClick={slotSubmit} className="bg-[#32e793] hover:bg-[#1d5a3b] w-auto p-[8px] rounded-2xl">
+              Submit New Slots
+            </button>
+            <button onClick={removeAllSlots} className="bg-[#51b8e1] hover:bg-[#1e85ae] w-auto p-[8px] rounded-2xl">
+              Remove all slots
+            </button>
+            <button onClick={resetAllSlots} className="bg-[#51b8e1] hover:bg-[#1e85ae] w-auto p-[8px] rounded-2xl">
+              Reset all slots
+            </button>
+          </div>
+
+          {/* Slot List */}
+          <div className="mt-5 w-full  sm:w-[50%] mr-auto  ">
+            {slots.map((slot, index) => (
+              <div key={slot.id} className={`p-3 ${index % 2 === 0 ? 'bg-gray-600' : 'bg-white'} my-2 m-3 rounded-md shadow-md shadow-black`}>
+                <SlotAdder
+                  onRemove={() => handleDeleteSlot(slot.id)}
+                  onDayChange={(day) => handleDayChange(slot.id, day)}
+                  day={slot.day}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-      <div className='bg-gray-700 min-h-[50px] w-full my-5'>
-        <h1>Previous slots</h1>
-      </div>
-      <div className='w-screen min-h-[150px] bg-green-600 my-10 '>
-        <div className='flex flex-col gap-2 sm:flex-row sm:gap-10   '>
-          <button onClick={addSlot} className='bg-[#51b8e1] hover:bg-[#1e85ae] w-[100px] p-[8px] rounded-2xl my-10 sm:ml-10 '>
-            Slot Adder
-          </button>
-          <button onClick={slotSubmit} className='bg-[#32e793] hover:bg-[#1d5a3b] w-[100px] p-[8px] rounded-2xl my-10 '>
-            Submit New Slots
-          </button>
-          <button onClick={removeAllSlots} className='bg-[#51b8e1] hover:bg-[#1e85ae] w-[100px] p-[8px] rounded-2xl my-10 '>
-            Remove all slots
-          </button>
-          <button onClick={resetAllSlots} className='bg-[#51b8e1] hover:bg-[#1e85ae] w-[100px] p-[8px] rounded-2xl my-10 '>
-            Reset all slots
-          </button>
-        </div>
-        <div>
-          {slots.map((slot, index) => (
-            <div key={slot.id} className={`p-3 ${index % 2 === 0 ? 'bg-gray-600' : 'bg-white'} my-2`}>
-              <SlotAdder
-                onRemove={() => handleDeleteSlot(slot.id)}
-                onDayChange={(day) => handleDayChange(slot.id, day)}
-                day={slot.day} // Pass the `day` value to the SlotAdder component
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
