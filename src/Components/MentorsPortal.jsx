@@ -5,9 +5,22 @@ import NavBar from "./NavBar";
 import "./mentoring.css";
 import axios from "axios";
 import { Outlet,Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 //profile card
 const ProfileCard = ({ mentor }) => {
+
+  //  const getdetails =async ()=>{
+  //   const url1=`http://localhost:8080/admin/getmentor/${mentor.userId}`
+  //   const reposne= await axios.get(url1,{
+  //     headers: { "Content-Type": "application/json" },
+  //     withCredentials: true,
+  //     params: params,
+  //   });
+
+  
+  // }
+
   return (
     <div className="w-[250px] h-[300px] border-2 m-5 flex flex-col bigger-main rounded-lg overflow-hidden">
       <div className="flex flex-col items-center justify-center bg-green-600 flex-1">
@@ -20,7 +33,8 @@ const ProfileCard = ({ mentor }) => {
         <p>DOJ: {mentor.doj}</p>
         <div className="flex-grow"></div>
         <div className="flex justify-end bigger ml-2">
-          <a href="#" className="bg-blue-600 text-white px-3 py-1 rounded-lg">View details</a>
+        
+          <button className="bg-blue-600 text-white px-3 py-1 rounded-lg "><NavLink to={`/mentorprofileview/${mentor.userId}`}>View Details</NavLink> </button>
         </div>
       </div>
     </div>

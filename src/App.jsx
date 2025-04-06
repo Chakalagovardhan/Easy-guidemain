@@ -3,8 +3,9 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import { Suspense, lazy, useState } from 'react';
 import MentorsPortal from './Components/MentorsPortal';
 import Home from './Components/Home';
-import MentorBooking, { BookingSlots } from './Components/MentorBooking';
+import MentorBooking, { BookingSlots, RattingSection } from './Components/MentorBooking';
 import MentorslotSetter from './Components/MentorslotSetter';
+import ExamPortal from './Components/ExamPortal';
 
 // Lazy-loaded components
 const NavBar = lazy(() => import('./Components/NavBar'));
@@ -40,19 +41,19 @@ const router = createBrowserRouter([
       <Suspense fallback={<div>Laoding...</div>}>
         
         <MentorsPortal />
-        
-        
+      
 
       </Suspense>
     ),  
   },
 
   {
-    path:'/mentorprofileview',
+    path:'/mentorprofileview/:userId',
     element:(
     <Suspense fallback={<div>Loading...</div>}>
         <NavBar />
         <MentorBooking />
+        <RattingSection />
         <BookingSlots />
      
     </Suspense>
@@ -68,6 +69,19 @@ const router = createBrowserRouter([
         </div>
       </Suspense>
     ),
+  },
+  {
+
+    path:'/examportal',
+    element:(
+      <ExamPortal />
+    )
+  },
+  {
+    path:'/mentorprofileview',
+    element:(
+      <MentorBooking />
+    )
   },
   
   {

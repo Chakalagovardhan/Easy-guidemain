@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Login = () => {
+
+
+const formSubmit = ()=>{
+  useEffect
+}
+
+
+
   return (
     <div className="flex items-center justify-center h-screen bg">
       <div class=" w-[600px] h-[300px] rounded-2xl flex  ">
@@ -45,6 +53,7 @@ const Login = () => {
                 type="submit"
                 value="SUBMIT"
                 class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600 cursor-pointer"
+                onClick={}
               />
             </div>
           </form>

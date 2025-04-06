@@ -3,6 +3,9 @@ import "slick-carousel/slick/slick-theme.css";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "../index.css";
+import ExamPortal from "./ExamPortal";
+import { NavLink,Link } from "react-router-dom";
+import axios from "axios";
 
 const Herocarousel = () => {
   var settings = {
@@ -38,70 +41,121 @@ const Herocarousel = () => {
   );
 };
 
+
 const ConatctUs = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    mobileNumber: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmission = async (e) => {
+    const url = 'YOUR_BACKEND_ENDPOINT'; // Add your backend URL here
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    
+    try {
+      const response = await axios.post(url, formData, {
+        headers: {
+          "Content-Type": 'application/json'
+        }
+      });
+      console.log(response.data);
+      setSubmitStatus('success');
+      setFormData({ email: '', mobileNumber: '' });
+    } catch (error) {
+      console.error('Error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <>
-      {/* <!-- conatct us --> */}
-      <div class="w-full h-[400px] relative overflow-hidden">
-        <div class="absolute w-[calc(100vw-50vw)] h-[300px] bg-[#f1f0fe] rounded-tr-full rounded-br-full top-[40px]"></div>
-        <div class="absolute flex flex-row h-[250px] w-[70vw] top-[59px] left-[8vw]">
-          <div class=" flex-1 flex flex-col p-4 space-y-4 ">
-            <h5 class="text-lg font-bold text-black">Contact Us</h5>
-            <h1 class="text-md font-semibold text-black break-words">
-              Feel free to contact us
-            </h1>
-            <p class="text-xs text-black break-words w-[250px]">
-              Hello, my name is Chakala Govardhan Sai. I am feeling so great to
-              hear about this.
-            </p>
-            <button class="bg-white text-black text-xs h-[50px] w-[200px] rounded-md overflow-hidden relative self-center hover:bg-black hover:text-white">
-              <div class="bg-gray-600 rounded-full absolute h-[40px] w-[40px] top-1 -left-3"></div>
-              50% off <br /> Special discount
-              <div class="bg-gray-600 rounded-full absolute h-[30px] w-[30px] top-3 right-3 flex justify-center items-center"></div>
-            </button>
-          </div>
-          <div class="flex-1 ">
-            <form
-              action=""
-              autocomplete="on"
-              class="p-6 shadow-lg bg-[#7c6cd9] rounded-md w-80 space-y-2 m-1"
-            >
-              <div class="flex flex-col space-y-1">
-                <label for="uname" class="text-gray-700 font-medium">
-                  Gmail:
-                </label>
-                <input
-                  type="email"
-                  id="uname"
-                  name="ugmail"
-                  class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
+    <div className="w-full h-[400px] relative overflow-hidden">
+      <div className="absolute w-[calc(100vw-50vw)] h-[300px] bg-[#f1f0fe] rounded-tr-full rounded-br-full top-[40px]"></div>
+      <div className="absolute flex flex-row h-[250px] w-[70vw] top-[59px] left-[8vw]">
+        <div className="flex-1 flex flex-col p-4 space-y-4">
+          <h5 className="text-lg font-bold text-black">Contact Us</h5>
+          <h1 className="text-md font-semibold text-black break-words">
+            Feel free to contact us
+          </h1>
+          <p className="text-xs text-black break-words w-[250px]">
+            Hello, my name is Chakala Govardhan Sai. I am feeling so great to
+            hear about this.
+          </p>
+          <button className="bg-white text-black text-xs h-[50px] w-[200px] rounded-md overflow-hidden relative self-center hover:bg-black hover:text-white">
+            <div className="bg-gray-600 rounded-full absolute h-[40px] w-[40px] top-1 -left-3"></div>
+            50% off <br /> Special discount
+            <div className="bg-gray-600 rounded-full absolute h-[30px] w-[30px] top-3 right-3 flex justify-center items-center"></div>
+          </button>
+        </div>
+        <div className="flex-1">
+          <form
+            onSubmit={handleSubmission}
+            autoComplete="on"
+            className="p-6 shadow-lg bg-[#7c6cd9] rounded-md w-80 space-y-2 m-1"
+          >
+            <div className="flex flex-col space-y-1">
+              <label htmlFor="email" className="text-gray-700 font-medium">
+                Email:
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
 
-              <div class="flex flex-col space-y-1">
-                <label for="mobilenumber" class="text-gray-700 font-medium">
-                  Mobile Number
-                </label>
-                <input
-                  type="tel"
-                  id="mobilenumber"
-                  name="umobilenum"
-                  class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
+            <div className="flex flex-col space-y-1">
+              <label htmlFor="mobileNumber" className="text-gray-700 font-medium">
+                Mobile Number
+              </label>
+              <input
+                type="tel"
+                id="mobileNumber"
+                name="mobileNumber"
+                value={formData.mobileNumber}
+                onChange={handleChange}
+                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
 
-              <div class="flex justify-center">
-                <input
-                  type="submit"
-                  value="SUBMIT"
-                  class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600 cursor-pointer"
-                />
-              </div>
-            </form>
-          </div>
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600 cursor-pointer disabled:bg-blue-300"
+              >
+                {isSubmitting ? 'SENDING...' : 'SUBMIT'}
+              </button>
+            </div>
+
+            {submitStatus === 'success' && (
+              <p className="text-green-700 text-center mt-2">Form submitted successfully!</p>
+            )}
+            {submitStatus === 'error' && (
+              <p className="text-red-700 text-center mt-2">Error submitting form. Please try again.</p>
+            )}
+          </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -189,8 +243,8 @@ const ProgrameRecomnd = () => {
           </details>
           <div className=" w-full h-auto">
             <center>
-              <button className="border border-gray-800 rounded-lg px-3 py-2 font-semibold">
-                Take Assignment
+              <button className="border border-gray-800 rounded-lg px-3 py-2 font-semibold" >
+                <NavLink to='/examportal'>Take Assignment</NavLink>
               </button>
             </center>
           </div>

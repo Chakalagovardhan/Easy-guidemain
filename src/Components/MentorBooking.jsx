@@ -1,7 +1,42 @@
+import axios from "axios";
 import React from "react";
 import  { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const MentorBooking = () => {
+
+const {userId} = useParams();
+const [mentor ,setMentor] = useState(null);
+
+useEffect(()=>{
+
+const fetchMentor = async ()=>{
+  const url=`http://localhost:8080/admin/getmentor/${userId}`;
+  try {
+
+    const response= await axios.get(url,{
+      headers:{
+        "Content-Type":"application/json"
+      },
+      withCredentials:true
+    });
+    setMentor(response.data);
+  } catch (error) {
+
+    console.log("Error in fetching in mentor");
+    
+  }
+}
+if(userId)
+  fetchMentor();
+
+},[userId]);
+
+
+if(!mentor)
+  return <div className="text-center">Loading mentor details...</div>;
+
+
   return (
     <div className=" min-h-screen py-4 overflow-auto flex justify-center">
       <div className="w-[95%] sm:w-[80%] sm:min-h-[80%] bg-[#f1f0fe] mx-auto rounded-md grid grid-cols-1 sm:grid-cols-3 gap-2 p-3 shadow-2xl shadow-black">
@@ -10,8 +45,8 @@ const MentorBooking = () => {
           
           <div className="w-[50px] h-[50px] sm:w-[100px] sm:h-[100px] md:w-[150px] md:h-[150px] bg-black my-2 rounded-full"></div>
           <div className="flex flex-col ">
-          <p className="place-self-start">name:</p>
-          <p>rating
+          <p className="place-self-start">name:{mentor.userName}</p>
+          <p>rating:{mentor.ratting}
 
           </p>
           </div>
@@ -41,11 +76,11 @@ const MentorBooking = () => {
 
         {/* About Section */}
         <div className="w-full bg-gray-600 p-4 m-2 sm:col-span-2 rounded-md">
-          About section
+          {mentor.about}
         </div>
 
         {/* Skills Section */}
-        <div className="w-full bg-gray-600 p-4 m-2 rounded-md">Skills of mentor</div>
+        <div className="w-full bg-gray-600 p-4 m-2 rounded-md">skills</div>
 
         {/* Video Mentoring */}
         <div className="w-full bg-gray-600 p-4 m-2  flex gap-2 rounded-md">
@@ -113,20 +148,23 @@ const BookingSlots = () => {
     });
     setDates(weekDates);
     setSelectedDate(weekDates[0].fullDate);
+    
   }, []);
 
   useEffect(() => {
     if (selectedDate) {
-      fetch(`/api/available-times?date=${selectedDate}`)
+      fetch(`/admin/getpreviousSlots/${id}`)
         .then((res) => res.json())
         .then((data) => setTimeSlots(data));
     }
-  }, [selectedDate]);
+  }, []);
 
   const handleBooking = () => {
     if (!selectedTime) return;
     alert(`Booking confirmed for ${selectedDate} at ${selectedTime}`);
   };
+  
+  
 
   return (
     <div className="p-6">
@@ -174,10 +212,53 @@ const BookingSlots = () => {
   );
 };
 
+const RattingSection = () => {
+  return (
+    <div className="w-full  h-auto p-3 ">
+      <div className="flex flex-row flex-wrap gap-4 md:gap-6 lg:gap-8">
+        {/* Rating Card 1 */}
+        <div className="shadow-md shadow-black border-2 border-green-500 w-full md:w-[calc(33.33%-16px)] lg:w-[calc(33.33%-24px)] p-4 rounded-lg min-h-[200px]">
+          <div className="flex justify-between mb-2">
+            <span className="font-medium">Name: user</span>
+            <span>⭐⭐⭐⭐⭐</span>
+          </div>
+
+          <p className="text-justify text-sm">
+            fjbjwebfjewjfn wrjwejprjo wefbwef wefmwef wefnvl vvfnweifhewwif fwjf j ijnijninbbnjubjb kjbjbji jibijnkjkjbnkj ijbjibkjbkjb j kj kjb  ijj  
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, culpa.
+          </p>
+        </div>
+
+        {/* Rating Card 2 */}
+        <div className="shadow-md shadow-black border-2 border-green-500 w-full md:w-[calc(33.33%-16px)] lg:w-[calc(33.33%-24px)] p-4 rounded-lg min-h-[200px]">
+          <div className="flex justify-between mb-2">
+            <span className="font-medium">Name: user</span>
+            <span>⭐⭐⭐⭐⭐</span>
+          </div>
+          <p className="text-justify text-sm">
+            fjbjwebfjewjfn wrjwejprjo wefbwef wefmwef wefnvl vvfnweifhewwif fwjf j
+          </p>
+        </div>
+
+        {/* Rating Card 3 */}
+        <div className="shadow-md shadow-black border-2 border-green-500 w-full md:w-[calc(33.33%-16px)] lg:w-[calc(33.33%-24px)] p-4 rounded-lg min-h-[200px]">
+          <div className="flex justify-between mb-2">
+            <span className="font-medium">Name: user</span>
+            <span>⭐⭐⭐⭐⭐</span>
+          </div>
+          <p className="text-justify text-sm">
+            fjbjwebfjewjfn wrjwejprjo wefbwef wefmwef wefnvl vvfnweifhewwif fwjf j
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 
 export default MentorBooking;
 
 export  {
-  BookingSlots
+  BookingSlots,RattingSection
 };
