@@ -44,8 +44,8 @@ const Herocarousel = () => {
 
 const ConatctUs = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    mobileNumber: ''
+    userEmail: '',
+    userNumber: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
@@ -59,7 +59,7 @@ const ConatctUs = () => {
   };
 
   const handleSubmission = async (e) => {
-    const url = 'YOUR_BACKEND_ENDPOINT'; // Add your backend URL here
+    const url = 'http://localhost:8080/user/saveCutomerCare'; // Add your backend URL here
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
@@ -72,7 +72,7 @@ const ConatctUs = () => {
       });
       console.log(response.data);
       setSubmitStatus('success');
-      setFormData({ email: '', mobileNumber: '' });
+      setFormData({ userEmail: '', userNumber: '' });
     } catch (error) {
       console.error('Error:', error);
       setSubmitStatus('error');
@@ -113,7 +113,7 @@ const ConatctUs = () => {
               <input
                 type="email"
                 id="email"
-                name="email"
+                name="userEmail"
                 value={formData.email}
                 onChange={handleChange}
                 className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -128,7 +128,7 @@ const ConatctUs = () => {
               <input
                 type="tel"
                 id="mobileNumber"
-                name="mobileNumber"
+                name="userNumber"
                 value={formData.mobileNumber}
                 onChange={handleChange}
                 className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -147,7 +147,7 @@ const ConatctUs = () => {
             </div>
 
             {submitStatus === 'success' && (
-              <p className="text-green-700 text-center mt-2">Form submitted successfully!</p>
+              <p className="text-green-700 text-center mt-2">Form submitted successfully!</p> 
             )}
             {submitStatus === 'error' && (
               <p className="text-red-700 text-center mt-2">Error submitting form. Please try again.</p>

@@ -1,63 +1,200 @@
-import React, { useEffect } from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [formdata, setFormData] = useState({
+    userName: "",
+    userPassword: "",
+  });
+  const [submit, setsubmiting] = useState(false);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-const formSubmit = ()=>{
-  useEffect
-}
+  const formSubmit = async (e) => {
+    const controller = new AbortController();
+    e.preventDefault();
+    setsubmiting(true);
+    const timeout = setTimeout(() => {
+      controller.abort();
+    }, 10000);
+    const url = "http://localhost:8080/user/login";
+    try {
+      const response = await axios.post(url, formdata, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
 
-
+      console.log("Login success:", response.data);
+      if (response.data === true) {
+        navigate("/");
+      } else {
+        alert("Invalid credentials, please login again");
+        // Only reset password field for security, keep username for convenience
+        setFormData(prev => ({
+          ...prev,
+          userPassword: ""
+        }));
+      }
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        console.log("Backend was taking so long");
+      } else if (error.message === "Network Error") {
+        console.log("Backend is not in reposne");
+      } else {
+        console.error("Login failed:");
+      }
+    } finally {
+      setsubmiting(false);
+      
+    }
+  };
 
   return (
-    <div className="flex items-center justify-center h-screen bg">
-      <div class=" w-[600px] h-[300px] rounded-2xl flex  ">
-        <div class="basis-1/3  flex flex-col sm:flex-row justify-center items-center">
-          <img
-            src="src/Images/loginImage.jpg"
-            alt="Hello"
-            class="border-black"
-          />
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-md">
+        <div className="flex justify-center">{/* logo */}</div>
+        <h2 className="text-center text-2xl font-bold text-gray-900">
+          Sign in to your account
+        </h2>
 
-        <div class="basis-2/3 flex items-center justify-center ">
-          <form
-            action=""
-            autocomplete="on"
-            class="p-6 bg-white shadow-lg rounded-md w-80 space-y-4"
-          >
-            <div class="flex flex-col space-y-1">
-              <label for="uname" class="text-gray-700 font-medium">
-                Username:
+        <form className="mt-8 space-y-6" onSubmit={formSubmit}>
+          <div className="rounded-md shadow-sm space-y-4">
+            <div>
+              <label
+                htmlFor="userName"
+                className="block text-sm font-medium text-gray-700"
+              >
+                User name
               </label>
               <input
+                id="userName"
+                name="userName"
                 type="text"
-                id="uname"
-                class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                autoComplete="off"
+                required
+                onChange={handleChange}
+                value={formdata.userName}
+                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               />
             </div>
 
-            <div class="flex flex-col space-y-1">
-              <label for="upass" class="text-gray-700 font-medium">
-                Password:
+            <div>
+              <label
+                htmlFor="userPassword"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Password
               </label>
               <input
+                id="userPassword"
+                name="userPassword"
                 type="password"
-                id="upass"
-                class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                autoComplete="off"
+                required
+                value={formdata.userPassword}
+                onChange={handleChange}
+                className="?:mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              />
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-sm text-gray-900"
+              >
+                Remember me
+              </label>
             </div>
 
-            <div class="flex justify-center">
-              <input
-                type="submit"
-                value="SUBMIT"
-                class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600 cursor-pointer"
-                onClick={}
-              />
+            <div className="text-sm">
+              <a
+                href="#"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                Forgot password?
+              </a>
             </div>
-          </form>
-        </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              className={`${
+                submit
+                  ? "group w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-600 focus:outline-none cursor-not-allowed"
+                  : "group w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
+              }`}
+              disabled={submit}
+            >
+              {submit ? "submitting..." : "SUBMIT"}
+            </button>
+          </div>
+
+          <div className="relative mt-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="bg-white px-2 text-gray-500">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <div className="flex gap-4 mt-4">
+            <button
+              type="button"
+              className="flex-1 flex items-center justify-center border border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              <img
+                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                alt="Google"
+                className="h-5 w-5 mr-2"
+              />
+              Google
+            </button>
+            <button
+              type="button"
+              className="flex-1 flex items-center justify-center border border-gray-300 rounded-md px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              <img
+                src="https://www.svgrepo.com/show/475654/github-color.svg"
+                alt="GitHub"
+                className="h-5 w-5 mr-2"
+              />
+              GitHub
+            </button>
+          </div>
+        </form>
+
+        <p className="mt-4 text-center text-sm text-gray-600">
+          Not a member?{" "}
+          <a
+            href="#"
+            className="font-medium text-indigo-600 hover:text-indigo-500"
+          >
+            Start a 14 day free trial
+          </a>
+        </p>
       </div>
     </div>
   );

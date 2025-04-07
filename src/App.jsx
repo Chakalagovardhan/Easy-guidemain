@@ -54,10 +54,17 @@ const router = createBrowserRouter([
         <NavBar />
         <MentorBooking />
         <RattingSection />
-        <BookingSlots />
+        <Outlet />
+        
      
     </Suspense>
   ),
+  children:[
+    {
+      path:'book',
+      element:<BookingSlots />
+    }
+  ]
   },
 
   {
