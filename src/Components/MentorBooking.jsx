@@ -213,14 +213,17 @@ const BookingSlots = () => {
 };
 
 const RattingSection = () => {
+  const cards=[1,2,3];
   return (
     <div className="w-full  h-auto p-3 ">
       <div className="flex flex-row flex-wrap gap-4 md:gap-6 lg:gap-8">
         {/* Rating Card 1 */}
-        <div className="shadow-md shadow-black border-2 border-green-500 w-full md:w-[calc(33.33%-16px)] lg:w-[calc(33.33%-24px)] p-4 rounded-lg min-h-[200px]">
+        {
+          cards.map((card,index)=>(
+            <div className="shadow-md shadow-black border-2 border-green-500 w-full md:w-[calc(33.33%-16px)] lg:w-[calc(33.33%-24px)] p-4 rounded-lg min-h-[200px]" key={index}>
           <div className="flex justify-between mb-2">
             <span className="font-medium">Name: user</span>
-            <span>⭐⭐⭐⭐⭐</span>
+            <span>{"⭐".repeat(4)}</span>
           </div>
 
           <p className="text-justify text-sm">
@@ -228,28 +231,9 @@ const RattingSection = () => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, culpa.
           </p>
         </div>
-
-        {/* Rating Card 2 */}
-        <div className="shadow-md shadow-black border-2 border-green-500 w-full md:w-[calc(33.33%-16px)] lg:w-[calc(33.33%-24px)] p-4 rounded-lg min-h-[200px]">
-          <div className="flex justify-between mb-2">
-            <span className="font-medium">Name: user</span>
-            <span>⭐⭐⭐⭐⭐</span>
-          </div>
-          <p className="text-justify text-sm">
-            fjbjwebfjewjfn wrjwejprjo wefbwef wefmwef wefnvl vvfnweifhewwif fwjf j
-          </p>
-        </div>
-
-        {/* Rating Card 3 */}
-        <div className="shadow-md shadow-black border-2 border-green-500 w-full md:w-[calc(33.33%-16px)] lg:w-[calc(33.33%-24px)] p-4 rounded-lg min-h-[200px]">
-          <div className="flex justify-between mb-2">
-            <span className="font-medium">Name: user</span>
-            <span>⭐⭐⭐⭐⭐</span>
-          </div>
-          <p className="text-justify text-sm">
-            fjbjwebfjewjfn wrjwejprjo wefbwef wefmwef wefnvl vvfnweifhewwif fwjf j
-          </p>
-        </div>
+          ))
+        }
+        
       </div>
     </div>
   );

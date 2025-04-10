@@ -6,6 +6,8 @@ import Home from './Components/Home';
 import MentorBooking, { BookingSlots, RattingSection } from './Components/MentorBooking';
 import MentorslotSetter from './Components/MentorslotSetter';
 import ExamPortal from './Components/ExamPortal';
+import PasswordReset from './Components/Passwordrest';
+
 
 // Lazy-loaded components
 const NavBar = lazy(() => import('./Components/NavBar'));
@@ -24,6 +26,16 @@ const router = createBrowserRouter([
         </div>
       </Suspense>
     ),
+  },
+  {
+    path:'/forgotPassword',
+    element:(
+        <Suspense fallback={<div>Loading the password resetting form .......</div>}>
+          <div>
+            <PasswordReset />
+          </div>
+        </Suspense>
+    )
   },
   {
     path: '/userlogin',

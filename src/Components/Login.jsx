@@ -35,8 +35,12 @@ const Login = () => {
       });
       clearTimeout(timeout);
 
-      console.log("Login success:", response.data);
-      if (response.data === true) {
+      
+      
+      if (response.status === 200) {
+        console.log("login sucess");
+        console.log("Jwt token", response.data.JWT_TOKEN);
+        console.log("Refresh token",response.data.REFRESH_TOKEN);
         navigate("/");
       } else {
         alert("Invalid credentials, please login again");
@@ -71,17 +75,13 @@ const Login = () => {
         <form className="mt-8 space-y-6" onSubmit={formSubmit}>
           <div className="rounded-md shadow-sm space-y-4">
             <div>
-              <label
-                htmlFor="userName"
-                className="block text-sm font-medium text-gray-700"
-              >
-                User name
-              </label>
+              
               <input
                 id="userName"
                 name="userName"
                 type="text"
                 autoComplete="off"
+                placeholder="user name"
                 required
                 onChange={handleChange}
                 value={formdata.userName}
@@ -90,18 +90,14 @@ const Login = () => {
             </div>
 
             <div>
-              <label
-                htmlFor="userPassword"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Password
-              </label>
+             
               <input
                 id="userPassword"
                 name="userPassword"
                 type="password"
                 autoComplete="off"
                 required
+                placeholder="user password"
                 value={formdata.userPassword}
                 onChange={handleChange}
                 className="?:mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
@@ -124,14 +120,9 @@ const Login = () => {
                 Remember me
               </label>
             </div>
-
+            
             <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Forgot password?
-              </a>
+              <NavLink to={"/forgotPassword"} className="font-medium text-indigo-600 hover:text-indigo-500">Forgot Password</NavLink>
             </div>
           </div>
 
