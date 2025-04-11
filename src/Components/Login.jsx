@@ -32,7 +32,9 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         signal: controller.signal,
+        withCredentials: true, // 🚨 This is critical to include cookies!
       });
+      
       clearTimeout(timeout);
 
       

@@ -213,13 +213,14 @@ const MentorsPortal = () => {
         params: params,
       });
       console.log(params);
-      if (response.data && response.data.content.length > 0) {
+      if (response.status === 200 && response.data.content && response.data.content.length > 0) {
         setMentors(response.data.content);
         console.log("Mentors fetched successfully:", response.data);
       } else {
         setMentors([]);
         console.log("No mentors found.");
       }
+      
     } catch (error) {
       console.error("API Error:", error);
       setMentors([]);
