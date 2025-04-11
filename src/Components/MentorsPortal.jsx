@@ -18,7 +18,6 @@ const ProfileCard = ({ mentor }) => {
   //     params: params,
   //   });
 
-  
   // }
 
   return (

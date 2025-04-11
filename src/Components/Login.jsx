@@ -41,6 +41,8 @@ const Login = () => {
       
       if (response.status === 200) {
         console.log("login sucess");
+        document.cookie = `JWT_TOKEN=${response.data.JWT_TOKEN}; Path=/; SameSite=Lax; Secure`;
+      document.cookie = `REFRESH_TOKEN=${response.data.REFRESH_TOKEN}; Path=/; SameSite=Lax; Secure`;
         console.log("Jwt token", response.data.JWT_TOKEN);
         console.log("Refresh token",response.data.REFRESH_TOKEN);
         navigate("/");

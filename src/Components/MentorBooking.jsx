@@ -11,7 +11,7 @@ const [mentor ,setMentor] = useState(null);
 useEffect(()=>{
 
 const fetchMentor = async ()=>{
-  const url=`http://localhost:8080/admin/getmentor/${userId}`;
+  const url=`http://localhost:8080/user/getmentor/${userId}`;
   try {
 
     const response= await axios.get(url,{
