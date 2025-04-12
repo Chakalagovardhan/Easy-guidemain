@@ -7,6 +7,7 @@ import MentorBooking, { BookingSlots, RattingSection } from './Components/Mentor
 import MentorslotSetter from './Components/MentorslotSetter';
 import ExamPortal from './Components/ExamPortal';
 import PasswordReset from './Components/Passwordrest';
+import UserRegistration from './Components/UserRegistration';
 
 
 // Lazy-loaded components
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
         </div>
       </Suspense>
     ),
+  },
+  {
+    path:'/newregistration',
+    element:(
+      <div>
+        <UserRegistration />
+      </div>
+    )
   },
   {
     path:'/forgotPassword',
