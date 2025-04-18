@@ -1,4 +1,5 @@
 import React from "react";
+import EmojiSlider from "./EmojiSlider";
 
 const ExamPortal = () => {
   return (
@@ -100,6 +101,7 @@ const ExamPortal = () => {
             </div>
         </div>
       </form>
+      <EmojiSlider />
     </div>
   );
 };

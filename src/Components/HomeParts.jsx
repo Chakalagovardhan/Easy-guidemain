@@ -301,25 +301,95 @@ const ReviewsSection = () => {
         <div className="slider-container">
           <Slider {...settings}>
             <div className="w-full sm:w-[300px]  h-[300px] bg-green-600  p-3 mx-2">
-              <h3>1</h3>
+              <div className="w-[100%] h-[100%] flex flex-col gap-2">
+                <div className="w-full h-[35%] bg-yellow-600 flex flex-row gap-3 rounded-lg flex-wrap  items-center sm:gap-7 ">
+                  <div className="h-[80px] w-[80px] bg-gray-700 rounded-full ml-5 "></div>
+                  <div className="font-bold  ">Govardhan sai</div>
+                </div>
+                {/* descreption */}
+                <div className="flex-1 bg-gray-700 rounded-lg text-ellipsis p-3 ">
+                   
+                </div>
+
+              </div>
             </div>
             <div className="w-full sm:w-[300px] h-[300px] bg-green-600  p-3 mx-2">
-              <h3>2</h3>
+            <div className="w-[100%] h-[100%] flex flex-col gap-2">
+                <div className="w-full h-[35%] bg-yellow-600 flex flex-row gap-3 rounded-lg flex-wrap  items-center sm:gap-7 ">
+                  <div className="h-[80px] w-[80px] bg-gray-700 rounded-full ml-5 "></div>
+                  <div className="font-bold  ">Govardhan sai</div>
+                </div>
+                {/* descreption */}
+                <div className="flex-1 bg-gray-700 rounded-lg text-ellipsis p-3 ">
+                   
+                </div>
+
+              </div>
             </div>
             <div className="w-full sm:w-[300px] h-[300px] bg-green-600  p-3 mx-2">
-              <h3>3</h3>
+            <div className="w-[100%] h-[100%] flex flex-col gap-2">
+                <div className="w-full h-[35%] bg-yellow-600 flex flex-row gap-3 rounded-lg flex-wrap  items-center sm:gap-7 ">
+                  <div className="h-[80px] w-[80px] bg-gray-700 rounded-full ml-5 "></div>
+                  <div className="font-bold  ">Govardhan sai</div>
+                </div>
+                {/* descreption */}
+                <div className="flex-1 bg-gray-700 rounded-lg text-ellipsis p-3 ">
+                   
+                </div>
+
+              </div>
             </div>
             <div className="w-full sm:w-[300px] h-[300px] bg-green-600  p-3 mx-2">
-              <h3>4</h3>
+            <div className="w-[100%] h-[100%] flex flex-col gap-2">
+                <div className="w-full h-[35%] bg-yellow-600 flex flex-row gap-3 rounded-lg flex-wrap  items-center sm:gap-7 ">
+                  <div className="h-[80px] w-[80px] bg-gray-700 rounded-full ml-5 "></div>
+                  <div className="font-bold  ">Govardhan sai</div>
+                </div>
+                {/* descreption */}
+                <div className="flex-1 bg-gray-700 rounded-lg text-ellipsis p-3 ">
+                   
+                </div>
+
+              </div>
             </div>
             <div className="w-full sm:w-[300px] h-[300px] bg-green-600  p-3 mx-2">
-              <h3>5</h3>
+            <div className="w-[100%] h-[100%] flex flex-col gap-2">
+                <div className="w-full h-[35%] bg-yellow-600 flex flex-row gap-3 rounded-lg flex-wrap  items-center sm:gap-7 ">
+                  <div className="h-[80px] w-[80px] bg-gray-700 rounded-full ml-5 "></div>
+                  <div className="font-bold  ">Govardhan sai</div>
+                </div>
+                {/* descreption */}
+                <div className="flex-1 bg-gray-700 rounded-lg text-ellipsis p-3 ">
+                   
+                </div>
+
+              </div>
             </div>
             <div className="w-full sm:w-[300px] h-[300px] bg-green-600  p-3 mx-2">
-              <h3>6</h3>
+            <div className="w-[100%] h-[100%] flex flex-col gap-2">
+                <div className="w-full h-[35%] bg-yellow-600 flex flex-row gap-3 rounded-lg flex-wrap  items-center sm:gap-7 ">
+                  <div className="h-[80px] w-[80px] bg-gray-700 rounded-full ml-5 "></div>
+                  <div className="font-bold  ">Govardhan sai</div>
+                </div>
+                {/* descreption */}
+                <div className="flex-1 bg-gray-700 rounded-lg text-ellipsis p-3 ">
+                   
+                </div>
+
+              </div>
             </div>
             <div className="w-full sm:w-[300px] h-[300px] bg-green-600  p-3 mx-2">
-              <h3>7</h3>
+            <div className="w-[100%] h-[100%] flex flex-col gap-2">
+                <div className="w-full h-[35%] bg-yellow-600 flex flex-row gap-3 rounded-lg flex-wrap  items-center sm:gap-7 ">
+                  <div className="h-[80px] w-[80px] bg-gray-700 rounded-full ml-5 "></div>
+                  <div className="font-bold  ">Govardhan sai</div>
+                </div>
+                {/* descreption */}
+                <div className="flex-1 bg-gray-700 rounded-lg text-ellipsis p-3 ">
+                   
+                </div>
+
+              </div>
             </div>
           </Slider>
         </div>

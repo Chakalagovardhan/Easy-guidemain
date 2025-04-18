@@ -26,7 +26,7 @@ const NavBar = () => {
                 <li className="text-white  p-2 m-5 hover:bg-zinc-700  rounded font-bold"><NavLink to="/" className={({isActive})=>isActive ?"active-link":""}>Home</NavLink></li>
                 <li className="text-white  p-2 m-5 hover:bg-zinc-700  rounded font-bold"><NavLink to="/about" className={({isActive})=>isActive ?"active-link":""}>About</NavLink></li>
                 <li className="text-white  p-2 m-5 hover:bg-zinc-700  rounded font-bold"><NavLink to="/mentorbook" className={({isActive})=>isActive ?"active-link":""}>Mentoring</NavLink></li>
-                <li className="text-white  p-2 m-5 hover:bg-zinc-700  rounded font-bold"><NavLink to="/contact" className={({isActive})=>isActive ?"active-link":""}>Home</NavLink></li>
+                <li className="text-white  p-2 m-5 hover:bg-zinc-700  rounded font-bold"><NavLink to="/contact" className={({isActive})=>isActive ?"active-link":""}>My Learning</NavLink></li>
                 <li className="text-white  p-2 m-5 hover:bg-zinc-700  rounded font-bold"><NavLink to="/userlogin" className={({isActive})=>isActive ?"active-link":""}>Login</NavLink></li>
             </ul>
         </div>
