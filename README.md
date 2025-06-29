@@ -68,6 +68,10 @@ Ui part-2
 FAQS-section
 ![image](https://github.com/user-attachments/assets/0658136b-426e-4158-b947-597e029091b3)
 
+Mentor search ui
+![image](https://github.com/user-attachments/assets/6b95b356-d69b-414e-b1b1-4f65f6497c5b)
+
+
 
 
 Image of mentor ProfileView 
