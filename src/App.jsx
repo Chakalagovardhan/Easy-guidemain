@@ -5,10 +5,11 @@ import MentorsPortal from './Components/MentorsPortal';
 import Home from './Components/Home';
 import MentorBooking, { BookingSlots, RattingSection } from './Components/MentorBooking';
 import MentorslotSetter from './Components/MentorslotSetter';
-import ExamPortal from './Components/ExamPortal';
+
 import PasswordReset from './Components/Passwordrest';
 import UserRegistration from './Components/UserRegistration';
 
+import Resources from './Components/Resources';
 
 // Lazy-loaded components
 const NavBar = lazy(() => import('./Components/NavBar'));
@@ -67,6 +68,15 @@ const router = createBrowserRouter([
       </Suspense>
     ),  
   },
+  {
+    path:'/resource',
+    element:(
+      <Suspense fallback={<div>Loading...</div>}>
+        <NavBar />
+        <Resources />
+    </Suspense>
+    )
+  },
 
   {
     path:'/mentorprofileview/:userId',
@@ -89,7 +99,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path:'mentorslotsetter',
+    path:'/mentorslotsetter',
     element:(
       <Suspense fallback={<div>Loading...</div>}>
         <div>
@@ -98,19 +108,14 @@ const router = createBrowserRouter([
       </Suspense>
     ),
   },
-  {
-
-    path:'/examportal',
-    element:(
-      <ExamPortal />
-    )
-  },
+  
   {
     path:'/mentorprofileview',
     element:(
       <MentorBooking />
     )
   },
+  
   
   {
     path: '*',
@@ -123,6 +128,7 @@ const router = createBrowserRouter([
       </Suspense>
     ),
   },
+  
 ]);
 
 // Main App Component

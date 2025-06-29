@@ -38,7 +38,9 @@ const NavBar = () => {
                 <img src="src/Images/easyguidelogo.png" alt="Logo" className="rounded-lg h-full" />
               </Link>
             </li>
-            <li className="text-white h-1/2 p-2 m-5 hover:bg-zinc-700 rounded font-bold">Mummy</li>
+            <li className="text-white h-1/2 p-2 m-5 hover:bg-zinc-700 rounded font-bold">
+              <NavLink to="/communities"  className={({isActive})=>isActive?"active-link" : ""}>communities</NavLink>
+            </li>
           </ul>
         </div>
 
@@ -49,18 +51,23 @@ const NavBar = () => {
               <NavLink to="/" className={({ isActive }) => isActive ? "active-link" : ""}>Home</NavLink>
             </li>
             <li className="text-white p-2 m-5 hover:bg-zinc-700 rounded font-bold">
-              <NavLink to="/about" className={({ isActive }) => isActive ? "active-link" : ""}>About</NavLink>
+              <NavLink to="/resource" className={({ isActive }) => isActive ? "active-link" : ""}>Resource</NavLink>
             </li>
             <li className="text-white p-2 m-5 hover:bg-zinc-700 rounded font-bold">
               <NavLink to="/mentorbook" className={({ isActive }) => isActive ? "active-link" : ""}>Mentoring</NavLink>
             </li>
-            <li className="text-white p-2 m-5 hover:bg-zinc-700 rounded font-bold">
+           {
+            isLoggedIn && (
+               <li className="text-white p-2 m-5 hover:bg-zinc-700 rounded font-bold">
               <NavLink to="/contact" className={({ isActive }) => isActive ? "active-link" : ""}>My Learning</NavLink>
             </li>
+            )
+           }
 
             {/* LOGIN / ACCOUNT DROPDOWN */}
             <li className="text-white p-2 m-5 hover:bg-zinc-700 rounded font-bold relative">
               {isLoggedIn ? (
+                
                 <button onClick={toggleDropdown}>My Account</button>
               ) : (
                 <NavLink to="/userlogin" className={({ isActive }) => isActive ? "active-link" : ""}>Login</NavLink>

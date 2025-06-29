@@ -182,13 +182,7 @@ const Login = () => {
         </form>
 
         <p className="mt-4 text-center text-sm text-gray-600">
-          Not a member?{" "}
-          <a
-            href="#"
-            className="font-medium text-indigo-600 hover:text-indigo-500"
-          >
-            Start a 14 day free trial
-          </a>
+          <NavLink to="/newregistration"  className="font-medium text-indigo-600 hover:text-indigo-500">New Singup</NavLink>
         </p>
       </div>
     </div>

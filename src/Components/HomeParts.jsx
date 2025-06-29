@@ -2,10 +2,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
-import "../index.css";
-import ExamPortal from "./ExamPortal";
+
 import { NavLink, Link } from "react-router-dom";
 import axios from "axios";
+import { axiosInstanceDsaSageFrontend } from "../configurations/AxiosInstance";
 
 const Herocarousel = () => {
   var settings = {
@@ -197,7 +197,7 @@ const Footer = () => {
          
           <div class="flex flex-col">
             <ul class="text-white">
-              <li>contact-us</li>
+              <a href="https://docs.google.com/forms/d/17REomaLNHm4nYumkNrYEonDgx5sI3DEwMFZ53ecLJrg"><li>contact-us</li></a>
               <li>Investor</li>
               <li>Report</li>
               <li>Bugs</li>
@@ -250,26 +250,29 @@ const ProgrameRecomnd = () => {
           </details>
           <details>
             <summary className="bg-[#7c6cd9] rounded-l-2xl w-[200px] p-2 mr-5 text-wrap font-bold">
-             How long will it take to make planner
-            </summary>
-            <p className=" bg-slate-300 rounded-md p-2 w-4/5 mx-5  text-wrap  font-bold">
-             It will take nearly 1 day from the time you send your response and the sheet is beign send to your mail id.
-            </p>
-          </details>
-          <details>
-            <summary className="bg-[#7c6cd9] rounded-l-2xl w-[200px] p-2 mr-5 text-wrap font-bold">
              Is this exam free of cost
             </summary>
             <p className=" bg-slate-300 rounded-md p-2 w-4/5 mx-5  text-wrap  font-bold">
               Yes the exam is free of cost and the reponse to get is free for the first time and from the next time you are beign charged accordingly.
             </p>
           </details>
+          <details>
+            <summary className="bg-[#7c6cd9] rounded-l-2xl w-[200px] p-2 mr-5 text-wrap font-bold">
+             How long will it take to make planner
+            </summary>
+            <p className=" bg-slate-300 rounded-md p-2 w-4/5 mx-5  text-wrap  font-bold">
+             It will take nearly 1 day from the time you send your response and the sheet is beign send to your mail id.
+            </p>
+          </details>
+          
           <div className=" w-full h-auto">
-            <center>
+            <a href={axiosInstanceDsaSageFrontend} target="_blank" >
+              <center>
               <button className="border border-gray-800 rounded-lg px-3 py-2 font-semibold">
-                <NavLink to="/examportal">Take Assignment</NavLink>
+                Take Assignment
               </button>
             </center>
+            </a>
           </div>
         </div>
       </div>
@@ -435,59 +438,81 @@ const ReviewsSection = () => {
 const FrequentlyAsked = () => {
   return (
     <>
-      <div className="flex flex-col sm:flex-row justify-between ">
-        <div className="w-full min-h-[350px] h-auto flex flex-col bg-[#f1f0fe] sm:my-5 justify-evenly pl-3 ">
+      <div className="flex flex-col sm:flex-row justify-between rounded-lg ">
+        <div className="w-full min-h-[350px] h-auto flex flex-col bg-[#f1f0fe] sm:my-5 justify-evenly pl-3 rounded-lg ">
           <details>
-            <summary className="bg-[#7c6cd9] rounded-l-2xl w-[200px] p-2 mr-5 text-wrap">
-              What is this test?
+            <summary className=" rounded-l-2xl min-w-[200px] p-2 mr-5 text-wrap ">
+              How to book mentor
             </summary>
-            <p className=" bg-slate-700 rounded-md p-2 w-4/5 mx-5  text-wrap">
-              This is the specalized dsa test where using your response a spcalized ai genarted dsa sheet is beign created for you.
+            <p className=" bg-slate-300 rounded-md p-2 w-4/5 mx-5  text-wrap">
+            The book the mentor please go to mentoring section avaliable in the navbar and search for the specific role 
+            or the company mentor you need as amentor and book according to desire <b>or else</b> fill your details in the contact form location
+            our team will back to you
             </p>
           </details>
           <details>
-            <summary className="bg-[#7c6cd9] rounded-l-2xl w-[200px] p-2 mr-5 text-wrap">
-             How long will it take to make planner
-            </summary>
-            <p className=" bg-slate-700 rounded-md p-2 w-4/5 mx-5  text-wrap">
-             It will take nearly 1 day from the time you send your response and the sheet is beign send to your mail id.
-            </p>
-          </details>
-          <details>
-            <summary className="bg-[#7c6cd9] rounded-l-2xl w-[200px] p-2 mr-5 text-wrap">
+            <summary className=" rounded-l-2xl min-w-[200px] p-2 mr-5 text-wrap ">
              Is this exam free of cost
             </summary>
-            <p className=" bg-slate-700 rounded-md p-2 w-4/5 mx-5  text-wrap">
+            <p className=" bg-slate-300 rounded-md p-2 w-4/5 mx-5  text-wrap">
               Yes the exam is free of cost and the reponse to get is free for the first time and from the next time you are beign charged accordingly.
             </p>
           </details>
+          <details>
+            <summary className=" rounded-l-2xl min-w-[200px] p-2 mr-5 text-wrap ">
+             Whom to contact when I was stucked in the website 
+            </summary>
+            <p className=" bg-slate-300 rounded-md p-2 w-4/5 mx-5  text-wrap">
+             You can contact to our customer service team by mailing us through our chanels like mail, or customer care number of our team 
+             they will guide you accordingly as per your concerns. 
+            </p>
+          </details>
+          
+          <details>
+            <summary className=" rounded-l-2xl min-w-[200px] p-2 mr-5 text-wrap ">
+              what are the benifits of subscription
+            </summary>
+            <p className=" bg-slate-300 rounded-md p-2 w-4/5 mx-5  text-wrap">
+              1.You can create your customized dsa sheet 3 times a month 2.Book a free mentor montly once 3.Mock Interview monthly 2-3 times 
+              4. Access to our premium materials,videos and documentations. 5.Get easy connect to our top mentors easily 
+            </p>
+          </details>
         </div>
-        <div className="w-full min-h-[350px] h-auto flex flex-col bg-[#f1f0fe] mb-4 sm:my-5 justify-evenly pl-3 ">
+
+
+        <div className="w-full min-h-[350px] h-auto flex flex-col bg-[#f1f0fe] mb-4 sm:my-5 justify-evenly pl-3 rounded-lg ">
           <details>
-            <summary className="bg-[#7c6cd9] rounded-l-2xl w-[200px] p-2 mr-5 text-wrap">
-              What is this test?
+            <summary className=" rounded-l-2xl min-w-[200px] p-2 mr-5 text-wrap">
+              How to attempt the test 
             </summary>
-            <p className=" bg-slate-700 rounded-md p-2 w-4/5 mx-5  text-wrap">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Doloremque, modi.fdsfsdfdsfdsfsdvcxv
+            <p className=" bg-slate-300 rounded-md p-2 w-4/5 mx-5  text-wrap">
+              Just simply please go to Assignments section clicck on the take test it will navigate to the test and attempt the question according
+              of your prior knowledge
             </p>
           </details>
           <details>
-            <summary className="bg-[#7c6cd9] rounded-l-2xl w-[200px] p-2 mr-5 text-wrap">
-              What is this test?
+            <summary className=" rounded-l-2xl min-w-[200px] p-2 mr-5 text-wrap ">
+              Can i customize my dsa sheet again
             </summary>
-            <p className=" bg-slate-700 rounded-md p-2 w-4/5 mx-5  text-wrap">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Doloremque, modi.fdsfsdfdsfdsfsdvcxv
+            <p className=" bg-slate-300 rounded-md p-2 w-4/5 mx-5  text-wrap">
+              Yes you can customize but the first customization is free of cost upon that you need to buy subscription.
             </p>
           </details>
           <details>
-            <summary className="bg-[#7c6cd9] rounded-l-2xl w-[200px] p-2 mr-5 text-wrap">
-              What is this test?
+            <summary className=" rounded-l-2xl min-w-[200px] p-2 mr-5 text-wrap ">
+             what are communities 
             </summary>
-            <p className=" bg-slate-700 rounded-md p-2 w-4/5 mx-5  text-wrap">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Doloremque, modi.fdsfsdfdsfdsfsdvcxv
+            <p className=" bg-slate-300 rounded-md p-2 w-4/5 mx-5  text-wrap">
+             Communities are like groups where you engage with your peers and discuss your thoughts and doubts.
+            </p>
+          </details>
+          <details>
+            <summary className=" rounded-l-2xl min-w-[200px] p-2 mr-5 text-wrap ">
+              what if mentor is not avialble on time
+            </summary>
+            <p className=" bg-slate-300 rounded-md p-2 w-4/5 mx-5  text-wrap">
+              If the mentor is not avialble at the time of appointment please mail to our customer team within 24-hours 
+              this will makes us to reschedule the appointment for you
             </p>
           </details>
         </div>

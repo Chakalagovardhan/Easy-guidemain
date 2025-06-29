@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import closeEye from '../Images/closeeye.png';
 import openEye from '../Images/openeye.png';
+import axiosInstance from '../configurations/AxiosInstance';
 
 const UserRegistration = () => {
   const [image, setImage] = useState(closeEye);
@@ -35,14 +36,20 @@ const UserRegistration = () => {
     setErrorMessage("");
     
     try {
-      const response = await axios.post(
-        "http://localhost:8080/user/user-signup",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
+      // const response = await axios.post(
+      //   "http://localhost:8080/user/user-signup",
+      //   formData,
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/json"
+      //     }
+      //   }
+      // );
+
+      const response = await axiosInstance.post(
+        "/user/user-signup",
+        formData
+
       );
 
       // Success case - backend returns 201 CREATED
